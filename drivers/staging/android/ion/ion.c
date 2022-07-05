@@ -1246,6 +1246,12 @@ int clone_sg_table(const struct sg_table *source, struct sg_table *dest)
 	for_each_sg(source->sgl, s_sg, source->nents, i) {
 		memcpy(d_sg, s_sg, sizeof(*s_sg));
 		d_sg = sg_next(d_sg);
+	if (buffer->kmap_cnt) {
+		if (buffer->kmap_cnt == INT_MAX)
+			return ERR_PTR(-EOVERFLOW);
+
+		buffer->kmap_cnt++;
+		return buffer->vaddr;
 	}
 
 	return 0;
