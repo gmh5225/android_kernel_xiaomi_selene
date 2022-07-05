@@ -1,0 +1,19 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: Yukina-Pipeline
+steps: 
+  - name: Kernel Pipeline
+    image: panchajanya1999/archlinux:latest
+    commands: 
+      - "bash kernel-build.sh"
+    environment: 
+      TG_TOKEN: 
+        from_secret: TG_TOKEN
+      TG_CHAT_IDV
+        from_secret: TG_CHAT_ID
+
+trigger:
+  event:
+  - custom
